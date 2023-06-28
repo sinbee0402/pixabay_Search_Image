@@ -19,6 +19,12 @@ class _MainScreenState extends State<MainScreen> {
   bool isLoading = false;
 
   @override
+  void dispose() {
+    _titleTextController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
