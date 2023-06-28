@@ -67,6 +67,7 @@ class _MainScreenState extends State<MainScreen> {
             if (isLoading) const CircularProgressIndicator(),
             Expanded(
               child: GridView.builder(
+                scrollDirection: Axis.horizontal,
                 itemCount: datas.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,

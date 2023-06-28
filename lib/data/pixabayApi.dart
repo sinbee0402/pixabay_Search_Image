@@ -19,7 +19,7 @@ class PixabayApi {
     final response =
         await http.get(Uri.parse('$pixabayUrl&q=$query&image_type=all'));
 
-    Iterable jsonArray = jsonDecode(response.body)['hits']['id']['previewURL'];
+    Iterable jsonArray = jsonDecode(response.body)['hits'];
 
     return jsonArray.map((e) => Pixabay.fromJson(e)).toList();
   }
