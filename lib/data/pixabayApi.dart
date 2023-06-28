@@ -8,15 +8,16 @@ class PixabayApi {
   static const pixabayUrl = 'https://pixabay.com/api/?key=$apiKey';
 
   Future<Pixabay> getPixabay() async {
-    final response = await http.get(Uri.parse('$pixabayUrl$apiKey'));
+    final response = await http.get(Uri.parse(pixabayUrl));
 
     return Pixabay.fromJson(jsonDecode(response.body));
   }
 
-  Future<List<Pixabay>> getPixabays() async {
-    final response = await http.get(Uri.parse(pixabayUrl));
+  Future<List<Pixabay>> getPixabays(String query) async {
+    final response =
+        await http.get(Uri.parse('$pixabayUrl&q=$query&image_type=all'));
 
-    Iterable jsonArray = jsonDecode(response.body);
+    Iterable jsonArray = jsonDecode(response.body)['hits']['id']['previewURL'];
 
     return jsonArray.map((e) => Pixabay.fromJson(e)).toList();
   }
