@@ -12,7 +12,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   final api = PixabayApi();
 
-  late List<Pixabay> datas;
+  List<Pixabay> datas = [];
 
   final _titleTextController = TextEditingController();
 
@@ -30,7 +30,7 @@ class _MainScreenState extends State<MainScreen> {
         child: Column(
           children: [
             const SizedBox(height: 8),
-            TextFormField(
+            TextField(
               controller: _titleTextController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
