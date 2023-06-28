@@ -65,6 +65,7 @@ class _MainScreenState extends State<MainScreen> {
                 ),
               ),
             ),
+            const SizedBox(height: 16),
             if (isLoading) const CircularProgressIndicator(),
             Expanded(
               child: GridView.builder(
