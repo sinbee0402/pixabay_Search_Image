@@ -5,6 +5,8 @@ part 'pixabay.g.dart';
 @JsonSerializable(explicitToJson: true)
 class Pixabay {
   int id;
+
+  @JsonKey(name: 'previewURL')
   String imgUrl;
 
   Pixabay({required this.id, required this.imgUrl});
