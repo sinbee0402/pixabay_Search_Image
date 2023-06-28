@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:search_image/data/model/pixabay.dart';
+import 'package:search_image/data/pixabayApi.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -8,7 +10,11 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  final api = PixabayApi();
+
   final _titleTextController = TextEditingController();
+
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -22,31 +28,48 @@ class _MainScreenState extends State<MainScreen> {
         child: Column(
           children: [
             const SizedBox(height: 8),
-            TextField(
+            TextFormField(
               controller: _titleTextController,
               decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  filled: true,
-                  hintStyle: TextStyle(color: Colors.grey[800]),
-                  hintText: '내용을 입력하세요',
-                  fillColor: Colors.white70),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                filled: true,
+                hintStyle: TextStyle(color: Colors.grey[800]),
+                hintText: '내용을 입력하세요',
+                fillColor: Colors.white70,
+                suffixIcon: GestureDetector(
+                  onTap: () async {
+                    if (_titleTextController.text.isNotEmpty) {
+                      setState(() {
+                        isLoading = true;
+                      });
+
+                      List<Pixabay> datas =
+                          await api.getPixabays(_titleTextController.text);
+
+                      setState(() {
+                        isLoading = false;
+                      });
+                    }
+                  },
+                  child: const Icon(Icons.search),
+                ),
+              ),
             ),
-            SingleChildScrollView(
-              child: _titleTextController.text == null
-                  ? Container(color: Colors.transparent)
-                  : GridView.builder(
-                      // itemCount: ,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 5,
-                        crossAxisSpacing: 5,
-                      ),
-                      itemBuilder: (BuildContext context, int index) {},
-                    ),
-            )
+            if (isLoading) const CircularProgressIndicator(),
+            // SingleChildScrollView(
+            //   scrollDirection: Axis.horizontal,
+            //   child: GridView.builder(
+            //     itemCount: 3,
+            //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            //       crossAxisCount: 2,
+            //       mainAxisSpacing: 5,
+            //       crossAxisSpacing: 5,
+            //     ),
+            //     itemBuilder: (BuildContext context, int index) {},
+            //   ),
+            // )
           ],
         ),
       ),
