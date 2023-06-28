@@ -12,6 +12,8 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   final api = PixabayApi();
 
+  late List<Pixabay> datas;
+
   final _titleTextController = TextEditingController();
 
   bool isLoading = false;
@@ -45,8 +47,7 @@ class _MainScreenState extends State<MainScreen> {
                         isLoading = true;
                       });
 
-                      List<Pixabay> datas =
-                          await api.getPixabays(_titleTextController.text);
+                      datas = await api.getPixabays(_titleTextController.text);
 
                       setState(() {
                         isLoading = false;
@@ -58,18 +59,30 @@ class _MainScreenState extends State<MainScreen> {
               ),
             ),
             if (isLoading) const CircularProgressIndicator(),
-            // SingleChildScrollView(
-            //   scrollDirection: Axis.horizontal,
-            //   child: GridView.builder(
-            //     itemCount: 3,
-            //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            //       crossAxisCount: 2,
-            //       mainAxisSpacing: 5,
-            //       crossAxisSpacing: 5,
-            //     ),
-            //     itemBuilder: (BuildContext context, int index) {},
-            //   ),
-            // )
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: GridView.builder(
+                itemCount: datas.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 5,
+                  crossAxisSpacing: 5,
+                ),
+                itemBuilder: (BuildContext context, int index) {
+                  final data = datas[index];
+                  return GestureDetector(
+                    onTap: () {},
+                    child: Hero(
+                      tag: '${data.id}',
+                      child: Image.network(
+                        data.imgUrl,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            )
           ],
         ),
       ),
