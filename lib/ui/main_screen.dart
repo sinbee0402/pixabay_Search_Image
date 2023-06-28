@@ -34,15 +34,18 @@ class _MainScreenState extends State<MainScreen> {
                   fillColor: Colors.white70),
             ),
             SingleChildScrollView(
-              child: GridView.builder(
-                // itemCount: ,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 5,
-                  crossAxisSpacing: 5,
-                ),
-                itemBuilder: (BuildContext context, int index) {},
-              ),
+              child: _titleTextController.text == null
+                  ? Container(color: Colors.transparent)
+                  : GridView.builder(
+                      // itemCount: ,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 5,
+                        crossAxisSpacing: 5,
+                      ),
+                      itemBuilder: (BuildContext context, int index) {},
+                    ),
             )
           ],
         ),
