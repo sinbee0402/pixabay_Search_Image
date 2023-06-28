@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:search_image/data/model/pixabay.dart';
 import 'package:search_image/data/pixabayApi.dart';
+import 'package:search_image/ui/detail_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -67,7 +68,7 @@ class _MainScreenState extends State<MainScreen> {
             if (isLoading) const CircularProgressIndicator(),
             Expanded(
               child: GridView.builder(
-                scrollDirection: Axis.horizontal,
+                scrollDirection: Axis.vertical,
                 itemCount: datas.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
@@ -77,7 +78,13 @@ class _MainScreenState extends State<MainScreen> {
                 itemBuilder: (BuildContext context, int index) {
                   final data = datas[index];
                   return GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DetailScreen(pixabay: data)),
+                      );
+                    },
                     child: Hero(
                       tag: '${data.id}',
                       child: Image.network(
