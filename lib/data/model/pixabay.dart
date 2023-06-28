@@ -6,7 +6,7 @@ part 'pixabay.g.dart';
 class Pixabay {
   int id;
 
-  @JsonKey(name: 'previewURL')
+  @JsonKey(name: 'largeImageURL')
   String imgUrl;
 
   Pixabay({required this.id, required this.imgUrl});
