@@ -5,9 +5,10 @@ part 'pixabay.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class Pixabay {
+  int id;
   String imgUrl;
 
-  Pixabay({required this.imgUrl});
+  Pixabay({required this.id, required this.imgUrl});
 
   factory Pixabay.fromJson(Map<String, dynamic> json) =>
       _$PixabayFromJson(json);
