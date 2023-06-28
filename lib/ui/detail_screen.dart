@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:search_image/data/model/pixabay.dart';
-import 'package:search_image/data/pixabayApi.dart';
 
 class DetailScreen extends StatelessWidget {
   final Pixabay data;

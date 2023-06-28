@@ -83,7 +83,7 @@ class _MainScreenState extends State<MainScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => DetailScreen(pixabay: data)),
+                            builder: (context) => DetailScreen(data: data)),
                       );
                     },
                     child: Hero(
