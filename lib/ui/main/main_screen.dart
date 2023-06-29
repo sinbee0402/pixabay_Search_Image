@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:search_image/data/model/pixabay.dart';
-import 'package:search_image/data/pixabayApi.dart';
-import 'package:search_image/ui/detail_screen.dart';
+import 'package:search_image/ui/detail/detail_screen.dart';
+import 'package:search_image/ui/main/main_view_model.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -11,16 +11,14 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  final api = PixabayApi();
+  final viewModel = MainViewModel();
 
   List<Pixabay> datas = [];
-
   String query = '';
-  final _titleTextController = TextEditingController();
 
   @override
   void dispose() {
-    _titleTextController.dispose();
+    viewModel.titleTextController.dispose();
     super.dispose();
   }
 
@@ -37,7 +35,7 @@ class _MainScreenState extends State<MainScreen> {
           children: [
             const SizedBox(height: 8),
             TextField(
-              controller: _titleTextController,
+              controller: viewModel.titleTextController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16),
@@ -48,9 +46,9 @@ class _MainScreenState extends State<MainScreen> {
                 fillColor: Colors.white70,
                 suffixIcon: IconButton(
                     onPressed: () async {
-                      query = _titleTextController.text;
+                      query = viewModel.titleTextController.text;
                       if (query.isNotEmpty) {
-                        datas = await api.getPixabays(query);
+                        datas = await viewModel.getPixabays(query);
                       }
                     },
                     icon: const Icon(Icons.search)),
@@ -59,7 +57,7 @@ class _MainScreenState extends State<MainScreen> {
             const SizedBox(height: 16),
             Expanded(
               child: FutureBuilder<List<Pixabay>>(
-                  future: api.getPixabays(query),
+                  future: viewModel.getPixabays(query),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       const Center(child: CircularProgressIndicator());
