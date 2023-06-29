@@ -1,23 +1,15 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 
-import 'package:http/http.dart' as http;
+import 'package:search_image/data/pixabay_api.dart';
 import '../../data/model/pixabay.dart';
 
-class MainViewModel {
-  final apiKey = '37726328-4a2b1a654b17d6bad1ec74dba';
-  final pixabayUrl = 'https://pixabay.com/api/';
-  final _titleTextController = TextEditingController();
+class MainViewModel with ChangeNotifier {
+  final api = PixabayApi();
 
-  TextEditingController get titleTextController => _titleTextController;
+  List<Pixabay> datas = [];
 
-  Future<List<Pixabay>> getPixabays(String query) async {
-    final response = await http
-        .get(Uri.parse('?key=$apiKey$pixabayUrl&q=$query&image_type=all'));
-
-    Iterable jsonArray = jsonDecode(response.body)['hits'];
-
-    return jsonArray.map((e) => Pixabay.fromJson(e)).toList();
+  Future<void> getImages(String query) async {
+    datas = await api.getPixabays(query);
+    notifyListeners();
   }
 }

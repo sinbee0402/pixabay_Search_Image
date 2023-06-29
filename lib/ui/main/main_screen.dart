@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:search_image/data/model/pixabay.dart';
 import 'package:search_image/ui/detail/detail_screen.dart';
 import 'package:search_image/ui/main/main_view_model.dart';
@@ -11,19 +12,19 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  final viewModel = MainViewModel();
-
-  List<Pixabay> datas = [];
   String query = '';
+
+  final _titleTextController = TextEditingController();
 
   @override
   void dispose() {
-    viewModel.titleTextController.dispose();
+    _titleTextController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final model = context.watch<MainViewModel>();
     return Scaffold(
       appBar: AppBar(
         elevation: 2,
@@ -35,7 +36,7 @@ class _MainScreenState extends State<MainScreen> {
           children: [
             const SizedBox(height: 8),
             TextField(
-              controller: viewModel.titleTextController,
+              controller: _titleTextController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16),
@@ -46,9 +47,9 @@ class _MainScreenState extends State<MainScreen> {
                 fillColor: Colors.white70,
                 suffixIcon: IconButton(
                     onPressed: () async {
-                      query = viewModel.titleTextController.text;
+                      query = _titleTextController.text;
                       if (query.isNotEmpty) {
-                        datas = await viewModel.getPixabays(query);
+                        model.getImages(query);
                       }
                     },
                     icon: const Icon(Icons.search)),
@@ -56,8 +57,8 @@ class _MainScreenState extends State<MainScreen> {
             ),
             const SizedBox(height: 16),
             Expanded(
-              child: FutureBuilder<List<Pixabay>>(
-                  future: viewModel.getPixabays(query),
+              child: FutureBuilder<void>(
+                  future: model.getImages(query),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       const Center(child: CircularProgressIndicator());
@@ -67,7 +68,7 @@ class _MainScreenState extends State<MainScreen> {
 
                     return GridView.builder(
                       scrollDirection: Axis.vertical,
-                      itemCount: datas.length,
+                      itemCount: model.datas.length,
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
@@ -75,7 +76,7 @@ class _MainScreenState extends State<MainScreen> {
                         crossAxisSpacing: 5,
                       ),
                       itemBuilder: (BuildContext context, int index) {
-                        final data = datas[index];
+                        final data = model.datas[index];
                         return GestureDetector(
                           onTap: () {
                             Navigator.push(
