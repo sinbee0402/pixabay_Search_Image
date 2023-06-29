@@ -15,9 +15,8 @@ class _MainScreenState extends State<MainScreen> {
 
   List<Pixabay> datas = [];
 
+  String query = '';
   final _titleTextController = TextEditingController();
-
-  bool isLoading = false;
 
   @override
   void dispose() {
@@ -47,55 +46,58 @@ class _MainScreenState extends State<MainScreen> {
                 hintStyle: TextStyle(color: Colors.grey[800]),
                 hintText: '내용을 입력하세요',
                 fillColor: Colors.white70,
-                suffixIcon: GestureDetector(
-                  onTap: () async {
-                    if (_titleTextController.text.isNotEmpty) {
-                      setState(() {
-                        isLoading = true;
-                      });
-
-                      datas = await api.getPixabays(_titleTextController.text);
-
-                      setState(() {
-                        isLoading = false;
-                      });
-                    }
-                  },
-                  child: const Icon(Icons.search),
-                ),
+                suffixIcon: IconButton(
+                    onPressed: () async {
+                      query = _titleTextController.text;
+                      if (query.isNotEmpty) {
+                        datas = await api.getPixabays(query);
+                      }
+                    },
+                    icon: const Icon(Icons.search)),
               ),
             ),
             const SizedBox(height: 16),
-            if (isLoading) const CircularProgressIndicator(),
             Expanded(
-              child: GridView.builder(
-                scrollDirection: Axis.vertical,
-                itemCount: datas.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 5,
-                  crossAxisSpacing: 5,
-                ),
-                itemBuilder: (BuildContext context, int index) {
-                  final data = datas[index];
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => DetailScreen(data: data)),
-                      );
-                    },
-                    child: Hero(
-                      tag: '${data.id}',
-                      child: Image.network(
-                        data.imgUrl,
-                        fit: BoxFit.cover,
+              child: FutureBuilder<List<Pixabay>>(
+                  future: api.getPixabays(query),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      const Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasError) {
+                      const Text('알 수 없는 에러');
+                    }
+
+                    return GridView.builder(
+                      scrollDirection: Axis.vertical,
+                      itemCount: datas.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 5,
+                        crossAxisSpacing: 5,
                       ),
-                    ),
-                  );
-                },
-              ),
+                      itemBuilder: (BuildContext context, int index) {
+                        final data = datas[index];
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      DetailScreen(data: data)),
+                            );
+                          },
+                          child: Hero(
+                            tag: '${data.id}',
+                            child: Image.network(
+                              data.imgUrl,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  }),
             )
           ],
         ),
