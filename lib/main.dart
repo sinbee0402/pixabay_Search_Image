@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:search_image/ui/main_screen.dart';
+import 'package:search_image/ui/main/main_screen.dart';
 
 void main() {
   runApp(const MyApp());
