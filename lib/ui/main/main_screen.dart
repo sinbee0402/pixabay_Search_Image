@@ -23,7 +23,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final model = context.watch<MainViewModel>();
+    final viewModel = context.watch<MainViewModel>();
     return Scaffold(
       appBar: AppBar(
         elevation: 2,
