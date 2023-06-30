@@ -48,7 +48,7 @@ class _MainScreenState extends State<MainScreen> {
                     onPressed: () async {
                       query = _titleTextController.text;
                       if (query.isNotEmpty) {
-                        model.getImages(query);
+                        viewModel.getImages(query);
                       }
                     },
                     icon: const Icon(Icons.search)),
@@ -57,7 +57,7 @@ class _MainScreenState extends State<MainScreen> {
             const SizedBox(height: 16),
             Expanded(
               child: FutureBuilder<void>(
-                  future: model.getImages(query),
+                  future: viewModel.getImages(query),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       const Center(child: CircularProgressIndicator());
@@ -67,7 +67,7 @@ class _MainScreenState extends State<MainScreen> {
 
                     return GridView.builder(
                       scrollDirection: Axis.vertical,
-                      itemCount: model.datas.length,
+                      itemCount: viewModel.datas.length,
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
@@ -75,7 +75,7 @@ class _MainScreenState extends State<MainScreen> {
                         crossAxisSpacing: 5,
                       ),
                       itemBuilder: (BuildContext context, int index) {
-                        final data = model.datas[index];
+                        final data = viewModel.datas[index];
                         return GestureDetector(
                           onTap: () {
                             Navigator.push(
