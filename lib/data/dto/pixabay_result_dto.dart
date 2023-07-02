@@ -1,11 +1,11 @@
-class PixabayResult {
-  PixabayResult({
+class PixabayResultDto {
+  PixabayResultDto({
     this.total,
     this.totalHits,
     this.hits,
   });
 
-  PixabayResult.fromJson(dynamic json) {
+  PixabayResultDto.fromJson(dynamic json) {
     total = json['total'];
     totalHits = json['totalHits'];
     if (json['hits'] != null) {
