@@ -53,14 +53,14 @@ class _MainScreenState extends State<MainScreen> {
             Expanded(
               child: GridView.builder(
                 scrollDirection: Axis.vertical,
-                itemCount: viewModel.photos!.length,
+                itemCount: viewModel.photos.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   mainAxisSpacing: 5,
                   crossAxisSpacing: 5,
                 ),
                 itemBuilder: (BuildContext context, int index) {
-                  final photo = viewModel.photos![index];
+                  final photo = viewModel.photos[index];
                   return GestureDetector(
                     onTap: () {
                       context.push('/detail', extra: photo);
