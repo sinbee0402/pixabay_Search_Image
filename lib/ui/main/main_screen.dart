@@ -63,7 +63,7 @@ class _MainScreenState extends State<MainScreen> {
                   final photo = viewModel.photos![index];
                   return GestureDetector(
                     onTap: () {
-                      context.push('/main/detail', extra: photo);
+                      context.push('/detail', extra: photo);
 
                       // Navigator.push(
                       //   context,
