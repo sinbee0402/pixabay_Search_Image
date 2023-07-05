@@ -1,7 +1,7 @@
 import 'package:search_image3/data/api/pixabay_api.dart';
 import 'package:search_image3/data/mapper/mapper.dart';
-import 'package:search_image3/data/model/photo.dart';
-import 'package:search_image3/data/repository/photo_repository.dart';
+import 'package:search_image3/domain/repository/photo_repository.dart';
+import 'package:search_image3/domain/model/photo.dart';
 
 class PixabayPhotoRepositoryImpl implements PhotoRepository {
   final _api = PixabayApi();

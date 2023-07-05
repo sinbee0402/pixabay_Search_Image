@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:search_image3/data/model/photo.dart';
+import 'package:search_image3/domain/model/photo.dart';
 
 class DetailScreen extends StatelessWidget {
   final Photo photo;

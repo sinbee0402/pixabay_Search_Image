@@ -1,5 +1,5 @@
 import 'package:search_image3/data/dto/pixabay_result_dto.dart';
-import 'package:search_image3/data/model/photo.dart';
+import 'package:search_image3/domain/model/photo.dart';
 
 extension ToPhoto on Hits {
   Photo toPhoto() {

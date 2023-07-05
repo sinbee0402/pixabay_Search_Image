@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:search_image3/data/repository/pixabay_photo_repository_impl.dart';
-import 'package:search_image3/ui/main/main_state.dart';
+import 'package:search_image3/presentation/main/main_state.dart';
 
 class MainViewModel with ChangeNotifier {
   final PixabayPhotoRepositoryImpl _repositoryImpl;
