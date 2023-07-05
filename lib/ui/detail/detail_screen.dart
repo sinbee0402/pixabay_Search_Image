@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:search_image3/data/model/photo.dart';
 
 class DetailScreen extends StatelessWidget {
-  final Photo data;
+  final Photo photo;
 
   const DetailScreen({
     Key? key,
-    required this.data,
+    required this.photo,
   }) : super(key: key);
 
   @override
@@ -14,10 +14,10 @@ class DetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: Hero(
-        tag: '${data.id}',
+        tag: '${photo.id}',
         child: Center(
           child: Image.network(
-            data.url,
+            photo.url,
             fit: BoxFit.cover,
             width: double.infinity,
           ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:search_image3/router.dart';
-import 'package:search_image3/ui/main/main_screen.dart';
 
 void main() {
   runApp(const MyApp());
