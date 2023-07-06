@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:search_image4/presentation/main/main_view_model.dart';
 
@@ -60,7 +61,9 @@ class _MainScreenState extends State<MainScreen> {
               itemBuilder: (BuildContext context, int index) {
                 final photo = state.photos[index];
                 return GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    context.push('/detail', extra: photo);
+                  },
                   child: Hero(
                     tag: '${photo.id}',
                     child: Image.network(
