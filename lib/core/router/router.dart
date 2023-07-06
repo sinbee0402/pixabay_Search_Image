@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:search_image3/data/repository/pixabay_photo_repository_impl.dart';
 import 'package:search_image3/domain/model/photo.dart';
+import 'package:search_image3/domain/use_case/get_top_five_most_viewed_images_use_case.dart';
 import 'package:search_image3/presentation/detail/detail_screen.dart';
 import 'package:search_image3/presentation/main/main_screen.dart';
 import 'package:search_image3/presentation/main/main_view_model.dart';
@@ -14,7 +15,11 @@ final router = GoRouter(
       path: '/',
       builder: (context, state) {
         return ChangeNotifierProvider(
-          create: (_) => MainViewModel(PixabayPhotoRepositoryImpl()),
+          create: (_) => MainViewModel(
+            GetTopFiveMostViewedImagesUseCase(
+              PixabayPhotoRepositoryImpl(),
+            ),
+          ),
           child: const MainScreen(),
         );
       },
