@@ -6,7 +6,8 @@ class GetTopFiveMostViewedImagesUseCase {
 
   GetTopFiveMostViewedImagesUseCase(this._repository);
 
-  Future<List<Photo>> call(String query) async {
+  // call 혹은 excute 사용 -> call은 메서드를 직접 호출안해도 되지만, excute는 직접 명시(호출)해줘야한다.
+  Future<List<Photo>> excute(String query) async {
     final photos = await _repository.getPhotos(query);
 
     // 조회수 (views)순으로 정렬

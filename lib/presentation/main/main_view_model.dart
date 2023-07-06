@@ -12,7 +12,7 @@ class MainViewModel with ChangeNotifier {
 
   void fetchImages(String query) async {
     _state = state.copyWith(
-      photos: await _getTopFiveMostViewedImagesUseCase(query),
+      photos: await _getTopFiveMostViewedImagesUseCase.excute(query),
     );
     notifyListeners();
   }
