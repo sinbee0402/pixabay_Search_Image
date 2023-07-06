@@ -16,3 +16,7 @@ class GetTopFiveMostViewedImagesUseCase {
     return photos.toList();
   }
 }
+
+abstract interface class UseCase {
+  // 협업을 한다면 use_case 룰을 정해야 한다.
+}
