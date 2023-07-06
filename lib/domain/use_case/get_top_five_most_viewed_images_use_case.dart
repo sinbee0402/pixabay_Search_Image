@@ -1,11 +1,12 @@
 import 'package:search_image4/domain/model/photo.dart';
 import 'package:search_image4/domain/repository/photo_repository.dart';
 
-class GetTopFiveMostViewedImagesUseCase {
+class GetTopFiveMostViewedImagesUseCase implements UseCase {
   final PhotoRepository _repository;
 
   GetTopFiveMostViewedImagesUseCase(this._repository);
 
+  @override
   Future<List<Photo>> call(String query) async {
     final photos = await _repository.getPhotos(query);
 
@@ -13,4 +14,8 @@ class GetTopFiveMostViewedImagesUseCase {
 
     return photos.toList();
   }
+}
+
+abstract interface class UseCase {
+  Future<List<Photo>> call(String query);
 }
