@@ -28,54 +28,57 @@ class _MainScreenState extends State<MainScreen> {
       appBar: AppBar(
         title: const Text('이미지 검색'),
       ),
-      body: Column(
-        children: [
-          const SizedBox(height: 8),
-          TextField(
-            controller: textController,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            const SizedBox(height: 8),
+            TextField(
+              controller: textController,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                filled: true,
+                hintStyle: TextStyle(color: Colors.grey[800]),
+                hintText: '내용을 입력하세요',
+                fillColor: Colors.white70,
+                suffixIcon: IconButton(
+                    onPressed: () async {
+                      viewModel.fetch(textController.text);
+                    },
+                    icon: const Icon(Icons.search)),
               ),
-              filled: true,
-              hintStyle: TextStyle(color: Colors.grey[800]),
-              hintText: '내용을 입력하세요',
-              fillColor: Colors.white70,
-              suffixIcon: IconButton(
-                  onPressed: () async {
-                    viewModel.fetch(textController.text);
-                  },
-                  icon: const Icon(Icons.search)),
             ),
-          ),
-          const SizedBox(height: 16),
-          Expanded(
-            child: GridView.builder(
-              scrollDirection: Axis.vertical,
-              itemCount: state.photos.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 5,
-                crossAxisSpacing: 5,
-              ),
-              itemBuilder: (BuildContext context, int index) {
-                final photo = state.photos[index];
-                return GestureDetector(
-                  onTap: () {
-                    context.push('/detail', extra: photo);
-                  },
-                  child: Hero(
-                    tag: '${photo.id}',
-                    child: Image.network(
-                      photo.largeImageURL,
-                      fit: BoxFit.cover,
+            const SizedBox(height: 16),
+            Expanded(
+              child: GridView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: state.photos.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 5,
+                  crossAxisSpacing: 5,
+                ),
+                itemBuilder: (BuildContext context, int index) {
+                  final photo = state.photos[index];
+                  return GestureDetector(
+                    onTap: () {
+                      context.push('/detail', extra: photo);
+                    },
+                    child: Hero(
+                      tag: '${photo.id}',
+                      child: Image.network(
+                        photo.largeImageURL,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ),
-                );
-              },
-            ),
-          )
-        ],
+                  );
+                },
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
