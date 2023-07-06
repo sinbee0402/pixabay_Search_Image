@@ -10,6 +10,7 @@ class Photo with _$Photo {
   const factory Photo({
     required num id,
     required String url,
+    required num views,
   }) = _Photo;
 
   factory Photo.fromJson(Map<String, Object?> json) => _$PhotoFromJson(json);

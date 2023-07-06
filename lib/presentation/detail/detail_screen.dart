@@ -12,7 +12,9 @@ class DetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text('조회수 : ${photo.views}'),
+      ),
       body: Hero(
         tag: '${photo.id}',
         child: Center(

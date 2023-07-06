@@ -6,6 +6,7 @@ extension ToPhoto on Hits {
     return Photo(
       id: id ?? 0,
       url: largeImageURL ?? '',
+      views: views ?? 0,
     );
   }
 }
