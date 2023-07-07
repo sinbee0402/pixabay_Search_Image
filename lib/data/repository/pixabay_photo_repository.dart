@@ -9,11 +9,6 @@ class PixabayPhotoRepository implements PhotoRepository {
   @override
   Future<List<Photo>> getPhotos(String query) async {
     final photos = await _api.getPixabays(query);
-
-    if (photos == null) {
-      return [];
-    }
-
-    return photos!.toList();
+    return photos.toList();
   }
 }
