@@ -1,17 +1,17 @@
 abstract class Result<T> {
-  factory Result.success(T data) = Success;
+  const factory Result.success(T data) = Success;
 
-  factory Result.error(Exception e) = Error;
+  const factory Result.error(String e) = Error;
 }
 
 class Success<T> implements Result<T> {
   final T data;
 
-  Success(this.data);
+  const Success(this.data);
 }
 
 class Error<T> implements Result<T> {
-  final Exception e;
+  final String e;
 
-  Error(this.e);
+  const Error(this.e);
 }
