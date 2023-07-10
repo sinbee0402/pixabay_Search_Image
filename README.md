@@ -1,6 +1,7 @@
 # search_image3
 
-Clean Architecture 사용 <br>
+Clean Architecture 사용
+<br>
 MVVM 패턴 사용.
 - model, api, dto, mapper, repository 구현
 - use case, state 사용
