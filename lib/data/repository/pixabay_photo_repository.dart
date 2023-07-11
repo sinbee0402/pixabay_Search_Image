@@ -7,6 +7,10 @@ class PixabayPhotoRepository {
   Future<List<Photo>> getPhotos(String query) async {
     final photos = await _api.getPixabays(query);
 
-    return photos.toList();
+    if (photos == null) {
+      return [];
+    }
+
+    return photos!.toList();
   }
 }
