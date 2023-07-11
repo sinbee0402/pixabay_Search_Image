@@ -1,8 +1,8 @@
-import 'package:search_image5/data/model/photo.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:search_image5/data/use_case/get_top_five_most_viewed_images_use_case.dart';
 import 'package:search_image5/ui/main/main_state.dart';
 
-class MainViewModel {
+class MainViewModel with ChangeNotifier {
   final GetTopFiveMostViewedImagesUseCase _getTopFiveMostViewedImagesUseCase;
 
   MainState _state = const MainState();
@@ -14,5 +14,6 @@ class MainViewModel {
     _state = state.copyWith(
       photos: await _getTopFiveMostViewedImagesUseCase(query),
     );
+    notifyListeners();
   }
 }
