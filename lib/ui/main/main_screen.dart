@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:search_image5/ui/main/main_view_model.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -18,6 +21,9 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<MainViewModel>();
+    final state = viewModel.state;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('이미지 검색 앱'),
@@ -37,8 +43,8 @@ class _MainScreenState extends State<MainScreen> {
                 hintText: '내용을 입력하세요',
                 hintStyle: TextStyle(color: Colors.grey[800]),
                 suffixIcon: IconButton(
-                  onPressed: () {
-                    print(textController.text);
+                  onPressed: () async {
+                    viewModel.fetch(textController.text);
                   },
                   icon: const Icon(Icons.search),
                 ),
@@ -51,21 +57,22 @@ class _MainScreenState extends State<MainScreen> {
             Expanded(
               child: GridView.builder(
                 scrollDirection: Axis.vertical,
-                //itemCount: ,
+                itemCount: state.photos.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   mainAxisSpacing: 5,
                   crossAxisSpacing: 5,
                 ),
                 itemBuilder: (context, index) {
+                  final photo = state.photos[index];
                   return GestureDetector(
                     onTap: () {
-                      // router 이동
+                      context.push('/detail', extra: photo);
                     },
                     child: Hero(
-                      tag: '',
+                      tag: '${photo.id}',
                       child: Image.network(
-                        '',
+                        photo.largeImageURL,
                         fit: BoxFit.cover,
                       ),
                     ),

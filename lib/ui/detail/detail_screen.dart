@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:search_image5/data/model/photo.dart';
 
 class DetailScreen extends StatelessWidget {
-  const DetailScreen({Key? key}) : super(key: key);
+  final Photo photo;
+
+  const DetailScreen({
+    Key? key,
+    required this.photo,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('조회수 '),
+        title: Text('조회수 ${photo.views}'),
       ),
       body: Hero(
         tag: '',
         child: Center(
           child: Image.network(
-            '',
+            photo.largeImageURL,
             fit: BoxFit.cover,
             width: double.infinity,
           ),

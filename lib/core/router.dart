@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:search_image5/data/model/photo.dart';
 import 'package:search_image5/data/repository/pixabay_photo_repository.dart';
 import 'package:search_image5/data/use_case/get_top_five_most_viewed_images_use_case.dart';
 import 'package:search_image5/ui/detail/detail_screen.dart';
@@ -26,7 +27,10 @@ final router = GoRouter(
         GoRoute(
           path: 'detail',
           builder: (context, state) {
-            return DetailScreen();
+            final photo = state.extra as Photo;
+            return DetailScreen(
+              photo: photo,
+            );
           },
         )
       ],
