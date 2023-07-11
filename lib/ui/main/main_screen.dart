@@ -50,7 +50,7 @@ class _MainScreenState extends State<MainScreen> {
                 ),
               ),
               onFieldSubmitted: (value) {
-                print(value);
+                viewModel.fetch(textController.text);
               },
             ),
             const SizedBox(height: 16),
