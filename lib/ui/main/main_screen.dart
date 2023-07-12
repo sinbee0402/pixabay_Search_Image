@@ -54,32 +54,35 @@ class _MainScreenState extends State<MainScreen> {
               },
             ),
             const SizedBox(height: 16),
-            Expanded(
-              child: GridView.builder(
-                scrollDirection: Axis.vertical,
-                itemCount: state.photos.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 5,
-                  crossAxisSpacing: 5,
-                ),
-                itemBuilder: (context, index) {
-                  final photo = state.photos[index];
-                  return GestureDetector(
-                    onTap: () {
-                      context.push('/detail', extra: photo);
-                    },
-                    child: Hero(
-                      tag: '${photo.id}',
-                      child: Image.network(
-                        photo.largeImageURL,
-                        fit: BoxFit.cover,
+            state.isLoading
+                ? const CircularProgressIndicator()
+                : Expanded(
+                    child: GridView.builder(
+                      scrollDirection: Axis.vertical,
+                      itemCount: state.photos.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 5,
+                        crossAxisSpacing: 5,
                       ),
+                      itemBuilder: (context, index) {
+                        final photo = state.photos[index];
+                        return GestureDetector(
+                          onTap: () {
+                            context.push('/detail', extra: photo);
+                          },
+                          child: Hero(
+                            tag: '${photo.id}',
+                            child: Image.network(
+                              photo.largeImageURL,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        );
+                      },
                     ),
-                  );
-                },
-              ),
-            )
+                  )
           ],
         ),
       ),

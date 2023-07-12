@@ -9,6 +9,7 @@ part 'main_state.g.dart';
 class MainState with _$MainState {
   const factory MainState({
     @Default([]) List<Photo> photos,
+    @Default(false) bool isLoading,
   }) = _MainState;
 
   factory MainState.fromJson(Map<String, Object?> json) =>
