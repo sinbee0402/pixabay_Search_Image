@@ -11,7 +11,11 @@ class MainViewModel with ChangeNotifier {
   MainViewModel(this._getTopFiveMostViewedImagesUseCase);
 
   void fetch(String query) async {
+    _state = state.copyWith(isLoading: true);
+    notifyListeners();
+
     _state = state.copyWith(
+      isLoading: false,
       photos: await _getTopFiveMostViewedImagesUseCase(query),
     );
     notifyListeners();
