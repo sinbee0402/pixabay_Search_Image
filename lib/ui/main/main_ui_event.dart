@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 part 'main_ui_event.freezed.dart';
 
 @freezed
-sealed class MainUiEvent<T> with _$MainUiEvent<T> {
+sealed class MainUiEvent with _$MainUiEvent {
   const factory MainUiEvent.showSnackBar(String message) = ShowSnackBar;
+  const factory MainUiEvent.endLoading() = EndLoading;
 }
