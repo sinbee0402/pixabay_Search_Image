@@ -8,16 +8,14 @@ class GetTopFiveMostViewedImagesUseCase {
   GetTopFiveMostViewedImagesUseCase(this._repository);
 
   Future<Result<List<Photo>>> call(String query) async {
-    final result = await _repository.getPhotos(query);
+    try {
+      final photos = await _repository.getPhotos(query);
 
-    switch (result) {
-      case Success(:final data):
-        data.sort((a, b) => -a.views.compareTo(b.views));
+      photos.sort((a, b) => -a.views.compareTo(b.views));
 
-        return Result.success(data.toList());
-
-      case Error():
-        return result;
+      return Result.success(photos.toList());
+    } catch (e) {
+      return const Result.error('네트워크 에러');
     }
   }
 }
