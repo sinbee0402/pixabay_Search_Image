@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:search_image5/core/router.dart';
 
+import 'di/di_setup.dart';
+
 void main() {
+  configureDependencies();
   runApp(const MyApp());
 }
 

@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:injectable/injectable.dart';
 import 'package:search_image5/core/result.dart';
 import 'package:search_image5/data/use_case/get_top_five_most_viewed_images_use_case.dart';
 import 'package:search_image5/ui/main/main_state.dart';
 import 'package:search_image5/ui/main/main_ui_event.dart';
 
+@injectable
 class MainViewModel with ChangeNotifier {
   final GetTopFiveMostViewedImagesUseCase _getTopFiveMostViewedImagesUseCase;
 

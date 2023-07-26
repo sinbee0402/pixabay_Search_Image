@@ -1,6 +1,8 @@
+import 'package:injectable/injectable.dart';
 import 'package:search_image5/data/api/pixabay_api.dart';
 import 'package:search_image5/data/model/photo.dart';
 
+@singleton
 class PixabayPhotoRepository {
   final _api = PixabayApi();
 

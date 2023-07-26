@@ -1,7 +1,9 @@
+import 'package:injectable/injectable.dart';
 import 'package:search_image5/core/result.dart';
 import 'package:search_image5/data/model/photo.dart';
 import 'package:search_image5/data/repository/pixabay_photo_repository.dart';
 
+@singleton
 class GetTopFiveMostViewedImagesUseCase {
   final PixabayPhotoRepository _repository;
 
