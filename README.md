@@ -2,7 +2,7 @@
 
 MVVM 패턴 사용.
 - model, api, repository 구현
-- use case, state, result 사용
+- use case, state, result, di 사용
 
 사용 라이브러리
 - freezed
@@ -12,3 +12,6 @@ MVVM 패턴 사용.
 - build_runner
 - provider
 - go_router
+- get_it
+- injectable
+- injectable_generator
